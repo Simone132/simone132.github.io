@@ -1,0 +1,269 @@
+* {
+    box-sizing: border-box;
+     font-family: 'Poppins', sans-serif;
+    }
+    .menu {
+    float: left;
+    width: 20%;
+    background-color: #ffffff;
+    margin-top: 0px;
+    height: 90%;
+    text-decoration: #3AB795;
+    padding: 10px 15px;
+    
+    }
+    
+    .main {
+    float: left;
+    width: 60%;
+    padding: 0 20px;
+    overflow: hidden;
+    
+    }
+    .right {
+    background-color:#ffffff;
+    float: left;
+    width: 20%;
+    padding: 10px 15px;
+    margin-top: -10px;
+    
+    align-items: center;
+    
+    }
+
+    @media only screen and (max-width:800px) {
+    /* For tablets: */
+    .main {
+    width: 80%;
+    padding: 0;
+    
+    }
+    .right {
+    width: 100%;
+    }
+}
+    @media only screen and (max-width:500px) {
+    /* For mobile phones: */
+    .menu, .main, .right {
+        width: 100%;
+        
+    }
+}
+img{
+    width: 100%;
+    
+}
+h1, h2{
+    text-align: center;
+    color: #3AB795;
+    background-color: #EDEAD0;
+}
+p{
+    text-align: center;
+    color: #FB6107;
+}
+
+.menu2 {
+    float: left;
+    width: 20%;
+    background-color: #ffffff;
+    margin-top: 0px;
+    height: 90%;
+    padding: 10px 15px;
+    }
+    a {
+    padding: 10px 15px;
+    margin-top: 1px;
+
+    }
+    .main2 {
+    float: left;
+    width: 60%;
+    padding: 0 20px;
+    overflow: hidden;
+    
+    }
+    .right2 {
+    background-color:#ffffff;
+    float: left;
+    width: 20%;
+    padding: 10px 15px;
+    margin-top: -10px;
+    
+    }
+
+    @media only screen and (max-width:800px) {
+    /* For tablets: */
+    .main2 {
+    width: 80%;
+    padding: 0;
+    
+    }
+    .right2 {
+    width: 100%;
+    
+    }
+}
+    @media only screen and (max-width:500px) {
+    /* For mobile phones: */
+    .menu2, .main2, .right2 {
+        width: 100%;
+        
+    }
+}
+.menu2 p{
+    color: #FB6107;
+}
+
+.menu3 {
+    float: left;
+    width: 20%;
+    background-color: #ffffff;
+    margin-top: 0px;
+    height: 90%;
+    padding: 10px 15px;
+    }
+    a {
+    padding: 10px 15px;
+    margin-top: 1px;
+
+    }
+    .main3 {
+    float: left;
+    width: 60%;
+    padding: 0 20px;
+    overflow: hidden;
+    
+    }
+    .right3 {
+    background-color:#ffffff;
+    float: left;
+    width: 20%;
+    padding: 10px 15px;
+    margin-top: -10px;
+    
+    }
+
+    @media only screen and (max-width:800px) {
+    /* For tablets: */
+    .main3 {
+    width: 80%;
+    padding: 0;
+    
+    }
+    .right3 {
+    width: 100%;
+
+    }
+}
+    @media only screen and (max-width:500px) {
+    /* For mobile phones: */
+    .menu3, .main3, .right3 {
+        width: 100%;
+        
+    }
+}
+.menu3 p{
+    color: #FB6107;
+}
+
+
+.menu4 {
+    float: left;
+    width: 20%;
+    background-color: #ffffff;
+    margin-top: 0px;
+    height: 90%;
+    padding: 10px 15px;
+    }
+    a {
+    padding: 10px 15px;
+    margin-top: 1px;
+
+    }
+    .main4 {
+    float: left;
+    width: 60%;
+    padding: 0 20px;
+    overflow: hidden;
+    
+    }
+    .right4 {
+    background-color:#ffffff;
+    float: left;
+    width: 20%;
+    padding: 10px 15px;
+    margin-top: -10px;
+    
+    }
+
+    @media only screen and (max-width:800px) {
+    /* For tablets: */
+    .main4 {
+    width: 80%;
+    padding: 0;
+    
+    }
+    .right4 {
+    width: 100%;
+    }
+}
+    @media only screen and (max-width:500px) {
+    /* For mobile phones: */
+    .menu4, .main4, .right4 {
+        width: 100%;
+        
+    }
+}
+.menu4 p{
+    color: #FB6107;
+}
+.main4 img{
+width: 100%;
+}
+.main2 i{
+display: flex;
+justify-content: center;
+    
+}
+.fa-java{
+    font-size: 20em;
+    color: yellowgreen;
+}
+.main3 i{
+    display: flex;
+    justify-content: center;
+        
+    }
+    .fa-css3-alt{
+        font-size: 20em;
+        color: #FFCF56;
+    }
+    .main4 i{
+        display: flex;
+        justify-content: center;
+            
+        }
+        .fa-html5{
+            font-size: 20em;
+            color: aqua;
+        }
+        .fa{
+            display: flex;
+
+        }
+        h4{
+            padding-top: 2em;
+            text-align:center;
+            align-items: center;
+            
+        }
+        .fa-github{
+            font-size: 15em;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            color: rgb(17, 0, 255);
+            
+        } 
+        
