@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+    
+            .container {
+                width: 600px;
+                margin: 20px auto;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+            }
+    
+            .card {
+                width: calc(25% - 20px); /* Calcolato in modo che ci siano 4 carte per riga */
+                max-width: 140px; /* Larghezza massima per garantire che quattro caselle si adattino correttamente su ogni riga */
+                height: 100px;
+                margin: 10px;
+                border: 2px solid black;
+                border-radius: 10px;
+                background-color: white;
+                cursor: pointer;
+                position: relative;
+            }
+    
+            .card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+                display: none;
+            }
+    
+            .card.flip {
+                transform: rotateY(180deg);
+            }
+    
+            .card.flip img {
+                display: block;
+            }
+    
+            .card.match {
+                border-color: green;
+                pointer-events: none;
+            }
+    
+            .card.wrong {
+                border-color: red;
+            }
+    
+            .overlay {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 50px;
+                color: white;
+                display: none;
+            }
+    
+            .overlay.show {
+                display: flex;
+            }
+            @media only screen and (max-width: 600px) {
+            .card {
+                width: calc(50% - 20px); /* Una carta per riga quando lo schermo è più piccolo */
+                max-width: none; /* Rimuovi la larghezza massima per adattarsi meglio ai dispositivi più piccoli */
+            }
+        }
+        </style>
+
+    
+</head>
+<body>
+    <div class="container">
+        <!-- 16 cards with different images -->
+        <div class="card" data-image="1"><img src="https://qph.cf2.quoracdn.net/main-qimg-ca94457f97bb7bd6662577b713c0ab62-lq" alt="Image 1"></div>
+        <div class="card" data-image="2"><img src="https://cdn.dday.it/system/uploads/news/main_image/21338/main_1.jpg" alt="Image 2"></div>
+        <div class="card" data-image="3"><img src="https://www.focusjunior.it/content/uploads/site_stored/imgs/0001/016/ripsim.jpg" alt="Image 3"></div>
+        <div class="card" data-image="4"><img src="https://www.dottorgadget.it/news/wp-content/uploads/2022/06/simpson-boe.png" alt="Image 4"></div>
+        <div class="card" data-image="5"><img src="https://i.pinimg.com/564x/c2/85/91/c285910dc1360d2a0a03ccc31a432b9b.jpg" alt="Image 5"></div>
+        <div class="card" data-image="6"><img src="https://www.hallofseries.com/wp-content/uploads/2021/02/45-cose-che-non-sapete-sui-simpson-11.jpg" alt="Image 6"></div>
+        <div class="card" data-image="7"><img src="https://hotcorn-cdn.fra1.cdn.digitaloceanspaces.com/wp-content/uploads/sites/2/2018/04/06112938/Quale-personaggi-de-I-Simpson-sei-364x205.jpg" alt="Image 7"></div>
+        <div class="card" data-image="8"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqKH2n4L12z9KP2l6jVEHolw8lBWx0ZIxFvg&usqp=CAU" alt="Image 8"></div>
+        <div class="card" data-image="1"><img src="https://qph.cf2.quoracdn.net/main-qimg-ca94457f97bb7bd6662577b713c0ab62-lq" alt="Image 1"></div>
+        <div class="card" data-image="2"><img src="https://cdn.dday.it/system/uploads/news/main_image/21338/main_1.jpg" alt="Image 2"></div>
+        <div class="card" data-image="3"><img src="https://www.focusjunior.it/content/uploads/site_stored/imgs/0001/016/ripsim.jpg" alt="Image 3"></div>
+        <div class="card" data-image="4"><img src="https://www.dottorgadget.it/news/wp-content/uploads/2022/06/simpson-boe.png" alt="Image 4"></div>
+        <div class="card" data-image="5"><img src="https://i.pinimg.com/564x/c2/85/91/c285910dc1360d2a0a03ccc31a432b9b.jpg" alt="Image 5"></div>
+        <div class="card" data-image="6"><img src="https://www.hallofseries.com/wp-content/uploads/2021/02/45-cose-che-non-sapete-sui-simpson-11.jpg" alt="Image 6"></div>
+        <div class="card" data-image="7"><img src="https://hotcorn-cdn.fra1.cdn.digitaloceanspaces.com/wp-content/uploads/sites/2/2018/04/06112938/Quale-personaggi-de-I-Simpson-sei-364x205.jpg" alt="Image 7"></div>
+        <div class="card" data-image="8"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqKH2n4L12z9KP2l6jVEHolw8lBWx0ZIxFvg&usqp=CAU" alt="Image 8"></div>
+        <!-- overlay to show the message when the game is over -->
+        <div class="overlay"><span>You win!</span></div>
+    </div>
+    <script>
+        // get all the cards and the overlay elements
+        const cards = document.querySelectorAll(".card");
+        const overlay = document.querySelector(".overlay");
+
+        // initialize some variables
+        let firstCard = null; // the first card that is flipped
+        let secondCard = null; // the second card that is flipped
+        let isFlipping = false; // a flag to prevent flipping more than two cards at a time
+        let matchedPairs = 0; // a counter to keep track of how many pairs are matched
+
+        // shuffle the cards by randomly assigning the order property
+        function shuffleCards() {
+            cards.forEach(card => {
+                card.style.order = Math.floor(Math.random() * 16);
+            });
+        }
+
+        // flip a card by adding the flip class
+        function flipCard(card) {
+            card.classList.add("flip");
+        }
+
+        // unflip a card by removing the flip class
+        function unflipCard(card) {
+            card.classList.remove("flip");
+        }
+
+        // check if two cards match by comparing their data-image attribute
+        function checkMatch(card1, card2) {
+            return card1.dataset.image === card2.dataset.image;
+        }
+
+        // mark a pair of cards as matched by adding the match class
+        function markMatch(card1, card2) {
+            card1.classList.add("match");
+            card2.classList.add("match");
+        }
+
+        // mark a pair of cards as wrong by adding the wrong class
+        function markWrong(card1, card2) {
+            card1.classList.add("wrong");
+            card2.classList.add("wrong");
+        }
+
+        // reset the game state by clearing the variables and removing the classes
+        function resetState() {
+            firstCard = null;
+            secondCard = null;
+            isFlipping = false;
+            cards.forEach(card => {
+                card.classList.remove("wrong");
+            });
+        }
+
+        // show the overlay and play the fireworks sound when the game is over
+        function gameOver() {
+            overlay.classList.add("show");
+            let audio = new Audio("fireworks.mp3");
+            audio.play();
+        }
+
+        // add a click event listener to each card
+        cards.forEach(card => {
+            card.addEventListener("click", function() {
+                // if the card is already flipped or matched, or if the game is in flipping state, do nothing
+                if (card.classList.contains("flip") || card.classList.contains("match") || isFlipping) {
+                    return;
+                }
+                // otherwise, flip the card
+                flipCard(card);
+                // if this is the first card that is flipped, assign it to the firstCard variable
+                if (!firstCard) {
+                    firstCard = card;
+                } else {
+                    // if this is the second card that is flipped, assign it to the secondCard variable and set the flipping state to true
+                    secondCard = card;
+                    isFlipping = true;
+                    // check if the two cards match
+                    if (checkMatch(firstCard, secondCard)) {
+                        // if they do, mark them as matched and increment the matchedPairs counter
+                        markMatch(firstCard, secondCard);
+                        matchedPairs++;
+                        // reset the game state after a short delay
+                        setTimeout(resetState, 500);
+                        // if all the pairs are matched, the game is over
+                        if (matchedPairs === 8) {
+                            gameOver();
+                        }
+                    } else {
+                        // if they don't, mark them as wrong and unflip them after a short delay
+                        markWrong(firstCard, secondCard);
+                        setTimeout(() => {
+                            unflipCard(firstCard);
+                            unflipCard(secondCard);
+                            // reset the game state after unflipping
+                            resetState();
+                        }, 1000);
+                    }
+                }
+            });
+        });
+
+        // shuffle the cards at the start of the game
+        shuffleCards();
+    </script>
+</body>
+</html>
