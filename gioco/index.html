@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indovina il Numero</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Indovina il Numero</h1>
+        <p>Inserisci un numero a 4 cifre per indovinare il numero segreto generato dal computer.</p>
+        <input type="text" id="guessInput" maxlength="4">
+        <button onclick="guessNumber()">Indovina</button>
+        <p id="message"></p>
+        <p id="attempts">Tentativi: <span id="attemptCount">0</span></p>
+        <p>Numeri già provati: <span id="triedNumbers"></span></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
