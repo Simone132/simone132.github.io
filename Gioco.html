@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Indovina il Numero</title>
     <style>
         body {
@@ -95,10 +95,11 @@
         }
 
         function guessNumber() {
-            let guessInput = document.getElementById("guessInput").value;
+            let guessInput = document.getElementById("guessInput");
+            let guessValue = guessInput.value;
 
             // Verifica se l'input è un numero a 4 cifre
-            if (guessInput.length !== 4 || isNaN(guessInput)) {
+            if (guessValue.length !== 4 || isNaN(guessValue)) {
                 setMessage("Inserisci un numero a 4 cifre valido.", "red");
                 return;
             }
@@ -106,13 +107,17 @@
             tentativi++;
 
             // Controlla se il numero è corretto
-            if (parseInt(guessInput) === numeroCasuale) {
+            if (parseInt(guessValue) === numeroCasuale) {
                 setMessage(`Bravo! Hai indovinato il numero in ${tentativi} tentativi.`, "green");
+                // Resetta l'input
+                guessInput.value = "";
+                // Resetta l'array dei numeri provati
+                numeriProvati = [];
             } else {
                 // Calcola le cifre esatte e posizioni corrette
                 let cifreEsatte = 0;
                 for (let i = 0; i < 4; i++) {
-                    if (guessInput[i] === numeroCasuale.toString()[i]) {
+                    if (guessValue[i] === numeroCasuale.toString()[i]) {
                         cifreEsatte++;
                     }
                 }
@@ -122,7 +127,7 @@
                 setMessage(message, "black");
 
                 // Aggiorna i numeri già provati
-                numeriProvati.push(guessInput);
+                numeriProvati.push(guessValue);
                 document.getElementById("triedNumbers").textContent = numeriProvati.join(", ");
             }
 
